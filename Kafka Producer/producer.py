@@ -27,6 +27,11 @@ def send_message(message):
 
 if __name__ == "__main__":
     # Replace this with the message you want to send
-    message_to_send = "Hello, Kafka!"
-    print(f"Sending message: {message_to_send}")
-    send_message(message_to_send)
+
+    while True:
+        message_to_send = input("Enter message to send (or 'exit' to quit): ")
+        if message_to_send.lower() == 'exit':
+            print("Exiting...")
+            break
+        print(f"Sending message: {message_to_send}")
+        send_message(message_to_send)
