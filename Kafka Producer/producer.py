@@ -1,7 +1,10 @@
+
+import os
 from kafka import KafkaProducer
 
-# Kafka broker address
-BROKER = "localhost:9092"
+
+# Kafka broker address (can be set via environment variable)
+BROKER = os.environ.get('KAFKA_BOOTSTRAP_SERVERS', 'localhost:9092')
 
 # Kafka topic to send messages to
 TOPIC = "test-topic"  # Replace with your topic name
