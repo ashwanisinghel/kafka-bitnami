@@ -1,7 +1,12 @@
+
+import os
+import json
 from kafka import KafkaProducer
 
-# Kafka broker address
-BROKER = "localhost:9092"
+
+# Kafka broker address (set via environment variable for Docker compatibility)
+BROKER = os.environ.get('KAFKA_BOOTSTRAP_SERVERS', 'kafka:9092')
+print(f"Using Kafka broker: {BROKER}")
 
 # Kafka topic to send messages to
 TOPIC = "test-topic"  # Replace with your topic name
@@ -26,7 +31,14 @@ def send_message(message):
         producer.close()
 
 if __name__ == "__main__":
-    # Replace this with the message you want to send
-    message_to_send = "Hello, Kafka!"
-    print(f"Sending message: {message_to_send}")
-    send_message(message_to_send)
+    # Send 100 sample JSON messages
+    for i in range(1, 101):
+        sample_data = {
+            "id": i,
+            "name": f"SampleName{i}",
+            "value": i * 10
+        }
+        message_json = json.dumps(sample_data)
+        print(f"Sending message: {message_json}")
+        send_message(message_json)
+    print("Finished sending 100 sample JSON messages.")

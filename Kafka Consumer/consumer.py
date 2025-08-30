@@ -1,6 +1,11 @@
+
+import os
 from kafka import KafkaConsumer
 
-def consume_messages(topic, bootstrap_servers='localhost:9092', group_id='test-consumer-group'):
+def consume_messages(topic, bootstrap_servers=None, group_id='test-consumer-group'):
+	if bootstrap_servers is None:
+		bootstrap_servers = os.environ.get('KAFKA_BOOTSTRAP_SERVERS', 'kafka:9092')
+	print(f"Using Kafka broker: {bootstrap_servers}")
 	consumer = KafkaConsumer(
 		topic,
 		bootstrap_servers=bootstrap_servers,
@@ -19,4 +24,5 @@ def consume_messages(topic, bootstrap_servers='localhost:9092', group_id='test-c
 
 if __name__ == "__main__":
 	topic = "test-topic"  # Change this to your topic name
+	# Optionally set KAFKA_BOOTSTRAP_SERVERS env variable in Docker
 	consume_messages(topic)
