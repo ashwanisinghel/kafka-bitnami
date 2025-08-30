@@ -4,9 +4,8 @@ import json
 from kafka import KafkaProducer
 
 
-# Kafka broker address (can be set via environment variable)
-# BROKER = os.environ.get('KAFKA_BOOTSTRAP_SERVERS', 'localhost:9092')
-BROKER = 'localhost:9092'
+# Kafka broker address (set via environment variable for Docker compatibility)
+BROKER = os.environ.get('KAFKA_BOOTSTRAP_SERVERS', 'kafka:9092')
 print(f"Using Kafka broker: {BROKER}")
 
 # Kafka topic to send messages to
